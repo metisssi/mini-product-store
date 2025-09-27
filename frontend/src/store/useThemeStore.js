@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export const useThemeStore = create((set) => ({
     theme: 'forest',
-    setTheme: (theme) => ({theme}), 
+    setTheme: (theme) => set({theme}), 
 }
 ))
 
