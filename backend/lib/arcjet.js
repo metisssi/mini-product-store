@@ -1,7 +1,6 @@
+
 import arcjet, { tokenBucket, shield, detectBot } from "@arcjet/node";
-
 import "dotenv/config"
-
 
 // init arcjet
 export const aj = arcjet({
@@ -12,14 +11,16 @@ export const aj = arcjet({
         shield({mode: "LIVE"}), 
         detectBot({
             mode: "LIVE",
-            // block all bots except search engines
-            allows: [
-                "CATEGORY:SEARCH_EMGINE"
-                // see the full list at https://arcjet.com/bot-list
+            // Исправлено: используем deny вместо allows
+            deny: [
+                "CATEGORY:AI",
+                "CATEGORY:SCRAPER"
             ]
+            // Или используйте allow:
+            // allow: ["CATEGORY:SEARCH_ENGINE"]
         }),
 
-        // rate limitng
+        // rate limiting
         tokenBucket({
             mode: "LIVE",
             refillRate: 5,
@@ -28,5 +29,3 @@ export const aj = arcjet({
         })
     ]
 })
-
-
